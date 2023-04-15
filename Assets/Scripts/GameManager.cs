@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
 
     void Result(int player, int opponent) {
         string result;
-        if(player == opponent) { result = "Draw!"; drawScore++; print("draw"); }
-        else if((player == 0 && opponent == 2) || (player == 2 && opponent == 1) || (player == 1 && opponent == 0)) { result = "You Win!"; playerScore++; print("Win"); }
+        if(IsDraw(player, opponent)) { result = "Draw!"; drawScore++; print("draw"); }
+        else if(isWin(player, opponent)) { result = "You Win!"; playerScore++; print("Win"); }
         else { result = "You Lose!"; opponentScore++; print("Lose"); }
 
         resultText.text = result;
@@ -42,6 +42,13 @@ public class GameManager : MonoBehaviour
         opponentScoreText.text = opponentScore.ToString();
     }
 
+    bool IsDraw(int player, int opponent) {
+        return player == opponent;
+    }
+
+    bool isWin(int player, int opponent) {
+        return (player == 0 && opponent == 2) || (player == 2 && opponent == 1) || (player == 1 && opponent == 0);
+    }
 
     void Output(string player, int choice, GameObject[] buttons) {
         string choiceText = "";
