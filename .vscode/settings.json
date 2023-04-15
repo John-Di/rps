@@ -1,4 +1,4 @@
-﻿{
+{
     "files.exclude":
     {
         "**/.DS_Store":true,
@@ -41,6 +41,9 @@
         "**/*.flare":true,
         "**/*.mat":true,
         "**/*.meta":true,
+        "**/*.inputactions":true,
+        "**/*.csproj":true,
+        "**/*.sln":true,
         "**/*.prefab":true,
         "**/*.unity":true,
         "build/":true,
@@ -51,6 +54,9 @@
         "Obj/":true,
         "ProjectSettings/":true,
         "temp/":true,
-        "Temp/":true
-    }
+        "Temp/":true,
+        "Logs/":true,
+        "UserSettings/":true,
+    },
+    "window.title": "${separator}${rootName}${separator}${activeEditorShort}",
 }
