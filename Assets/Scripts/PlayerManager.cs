@@ -28,25 +28,25 @@ public class PlayerManager : MonoBehaviour {
 
     public void ThrowRock() {
         Throw(0);
-        HideButtons(choice);
+        ShowChoice(choice);
         Debug.Log(string.Format("{0}: {1}", gameObject.name, "Rock"));
     }
 
     public void ThrowPaper() {
         Throw(1);
-        HideButtons(choice);
+        ShowChoice(choice);
         Debug.Log(string.Format("{0}: {1}", gameObject.name, "Paper"));
     }
 
     public void ThrowScissors() {
         Throw(2);
-        HideButtons(choice);
+        ShowChoice(choice);
         Debug.Log(string.Format("{0}: {1}", gameObject.name, "Scissors"));
     }
 
     protected void Throw(int choice) {
         this.choice = choice;
-        HideButtons(choice);
+        ShowChoice(choice);
     }
 
     public void Win() {
@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour {
     public void Draw() {
     }
 
-    public void HideButtons(int choice) {
+    void ShowChoice(int choice) {
         for(int i = 0; i < buttonObjs.Length; i++) {
             buttons[i].enabled = false;
 
@@ -71,7 +71,7 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    public void Reset() {
+    public void HideChoice() {
         choice = -1;
         for(int i = 0; i < buttonObjs.Length; i++) {
             buttons[i].enabled = true;

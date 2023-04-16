@@ -100,8 +100,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void PlayAgain() {
-        player.Reset();
-        opponent.Reset();
+        player.HideChoice();
+        opponent.HideChoice();
 
         resultText.text = "Rock Paper Scissors";
         playAgainButton.SetActive(false);
