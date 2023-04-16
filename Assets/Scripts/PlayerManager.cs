@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class PlayerManager : MonoBehaviour {
-
+    [SerializeField] protected Animator animator;
     [SerializeField] protected TextMeshProUGUI scoreText;
     [SerializeField] protected GameObject[] buttonObjs;
     protected Button[] buttons;
@@ -46,6 +46,7 @@ public class PlayerManager : MonoBehaviour {
 
     protected void Throw(int choice) {
         this.choice = choice;
+        animator.SetInteger("choice", choice);
         ShowChoice(choice);
     }
 
@@ -73,6 +74,8 @@ public class PlayerManager : MonoBehaviour {
 
     public void HideChoice() {
         choice = -1;
+        animator.SetInteger("choice", choice);
+
         for(int i = 0; i < buttonObjs.Length; i++) {
             buttons[i].enabled = true;
             buttonObjs[i].transform.parent.gameObject.SetActive(true);
