@@ -27,21 +27,26 @@ public class PlayerManager : MonoBehaviour {
     }
 
     public void ThrowRock() {
-        choice = 0;
+        Throw(0);
         HideButtons(choice);
         Debug.Log(string.Format("{0}: {1}", gameObject.name, "Rock"));
     }
 
     public void ThrowPaper() {
-        choice = 1;
+        Throw(1);
         HideButtons(choice);
         Debug.Log(string.Format("{0}: {1}", gameObject.name, "Paper"));
     }
 
     public void ThrowScissors() {
-        choice = 2;
+        Throw(2);
         HideButtons(choice);
         Debug.Log(string.Format("{0}: {1}", gameObject.name, "Scissors"));
+    }
+
+    protected void Throw(int choice) {
+        this.choice = choice;
+        HideButtons(choice);
     }
 
     public void Win() {

@@ -100,7 +100,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void PlayAgain() {
-
         player.Reset();
         opponent.Reset();
 
