@@ -7,86 +7,106 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI playerScoreText, opponentScoreText, drawScoreText, resultText;
+    enum Result { Win, Lose, Draw }
+
+    #region Serialized Fields
+    [SerializeField] TextMeshProUGUI drawScoreText, resultText;
     [SerializeField] GameObject playAgainButton;
-    [SerializeField] GameObject[] playerButtons, opponentButtons;
-    int playerScore = 0, opponentScore = 0, drawScore = 0;
+    [SerializeField] PlayerManager player;
+    [SerializeField] OpponentManager opponent;
+    [SerializeField] bool AIMode = true;
+    #endregion
+
+    Result turnResult;
+    int drawScore = 0;
+    const int NO_SELECTION = -1;
+
     // Start is called before the first frame update
-    void Start()
-    {
-
+    void Start() {
+        StartCoroutine(StandByPhase());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    IEnumerator StandByPhase() {
+        if(AIMode) {
+            yield return new WaitUntil(PlayerMoved);
+            StartCoroutine(AITurn());
+        }
 
+        yield return new WaitUntil(AllPlayersMoved);
+
+        BattlePhase();
     }
 
-    public void Shoot(int choice) {
-        int opponent = Random.Range(0, 3);
-        Output("Player", choice, playerButtons);
-        Output("Opponent", opponent, opponentButtons);
-        Result(choice, opponent);
+    void BattlePhase() {
+        Result result = GetResult(player.Choice, opponent.Choice);
+
+        ResultPhase(result);
     }
 
-    void Result(int player, int opponent) {
-        string result;
-        if(IsDraw(player, opponent)) { result = "Draw!"; drawScore++; print("draw"); }
-        else if(isWin(player, opponent)) { result = "You Win!"; playerScore++; print("Win"); }
-        else { result = "You Lose!"; opponentScore++; print("Lose"); }
+    Result GetResult(int player, int opponent) {
+        if(IsDraw(player, opponent)) { return Result.Draw; }
+        else if(IsWin(player, opponent)) { return Result.Win; }
+        else { return Result.Lose; }
+    }
 
-        resultText.text = result;
-        playerScoreText.text = playerScore.ToString();
-        drawScoreText.text = drawScore.ToString();
-        opponentScoreText.text = opponentScore.ToString();
+    void ResultPhase(Result result) {
+        switch(result) {
+            case Result.Win:   Win(); break;
+            case Result.Lose: Lose(); break;
+            case Result.Draw: Draw(); break;
+        }
+
+        playAgainButton.SetActive(true);
+    }
+
+    void Win() {
+        player.Win();
+        opponent.Lose();
+        resultText.text = "You Win!";
+    }
+
+    void Lose(){
+        player.Lose();
+        opponent.Win();
+        resultText.text = "You Lose!";
+    }
+
+    void Draw() {
+        player.Draw();
+        opponent.Draw();
+        drawScoreText.text = (++drawScore).ToString();
+        resultText.text = "Draw!";
+    }
+
+    IEnumerator AITurn() {
+        opponent.Move();
+        yield return null;
+    }
+
+    bool PlayerMoved() {
+        return player.Choice > NO_SELECTION;
+    }
+
+    bool AllPlayersMoved() {
+        return PlayerMoved() && opponent.Choice > NO_SELECTION;
     }
 
     bool IsDraw(int player, int opponent) {
         return player == opponent;
     }
 
-    bool isWin(int player, int opponent) {
+    bool IsWin(int player, int opponent) {
         return (player == 0 && opponent == 2) || (player == 2 && opponent == 1) || (player == 1 && opponent == 0);
     }
 
-    void Output(string player, int choice, GameObject[] buttons) {
-        string choiceText = "";
-        switch(choice) {
-            case 0: choiceText = "Rock"; break;
-            case 1: choiceText = "Paper"; break;
-            case 2: choiceText = "Scissors"; break;
-        }
-
-        for(int i = 0; i < buttons.Length; i++) {
-            GameObject button = buttons[i];
-            button.GetComponent<Button>().enabled = false;
-
-            if(i == choice) {
-                continue;
-            }
-
-            button.transform.parent.gameObject.SetActive(false);
-        }
-
-        playAgainButton.SetActive(true);
-        Debug.Log(string.Format("{0}: {1}", player, choiceText));
-    }
-
     public void PlayAgain() {
+
+        player.Reset();
+        opponent.Reset();
+
         resultText.text = "Rock Paper Scissors";
-
-        foreach(GameObject buttonObj in playerButtons) {
-            Button button = buttonObj.GetComponent<Button>();
-            buttonObj.GetComponent<Button>().enabled = true;
-            button.transform.parent.gameObject.SetActive(true);
-        }
-
-        foreach(GameObject buttonObj in opponentButtons) {
-            Button button = buttonObj.GetComponent<Button>();
-            button.transform.parent.gameObject.SetActive(true);
-        }
-
         playAgainButton.SetActive(false);
+
+        StartCoroutine(StandByPhase());
     }
 }

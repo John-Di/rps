@@ -133,6 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1333694}
   - component: {fileID: 1333693}
+  - component: {fileID: 1333696}
+  - component: {fileID: 1333695}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -152,19 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e2ecaeaa849c74db3fd87991e8420f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScoreText: {fileID: 21875100}
-  opponentScoreText: {fileID: 2135861889}
   drawScoreText: {fileID: 1893351734}
   resultText: {fileID: 1893578897}
   playAgainButton: {fileID: 412132543}
-  playerButtons:
-  - {fileID: 1377351363}
-  - {fileID: 1006037069}
-  - {fileID: 577609217}
-  opponentButtons:
-  - {fileID: 1312070466}
-  - {fileID: 397944562}
-  - {fileID: 1678192120}
+  player: {fileID: 1333696}
+  opponent: {fileID: 1333695}
+  AIMode: 1
 --- !u!4 &1333694
 Transform:
   m_ObjectHideFlags: 0
@@ -180,6 +175,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1333695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ef4244a79bee974bb95d61510814dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 2135861889}
+  buttonObjs:
+  - {fileID: 1377351363}
+  - {fileID: 1006037069}
+  - {fileID: 577609217}
+--- !u!114 &1333696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3983b69aa12434c8ee2f1a4084ce19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 21875100}
+  buttonObjs:
+  - {fileID: 1312070466}
+  - {fileID: 397944562}
+  - {fileID: 1678192120}
 --- !u!1 &21875098
 GameObject:
   m_ObjectHideFlags: 0
