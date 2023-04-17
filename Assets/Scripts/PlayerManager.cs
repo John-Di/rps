@@ -29,19 +29,20 @@ public class PlayerManager : MonoBehaviour {
     public void ThrowRock() {
         Throw(0);
         ShowChoice(choice);
-        Debug.Log(string.Format("{0}: {1}", gameObject.name, "Rock"));
+        // Debug.Log(string.Format("{0}: {1}", gameObject.name, "Rock"));
+        // Debug.Log(string.Format("{0}: {1}", gameObject.name, "Rock"));
     }
 
     public void ThrowPaper() {
         Throw(1);
         ShowChoice(choice);
-        Debug.Log(string.Format("{0}: {1}", gameObject.name, "Paper"));
+        // Debug.Log(string.Format("{0}: {1}", gameObject.name, "Paper"));
     }
 
     public void ThrowScissors() {
         Throw(2);
         ShowChoice(choice);
-        Debug.Log(string.Format("{0}: {1}", gameObject.name, "Scissors"));
+        // Debug.Log(string.Format("{0}: {1}", gameObject.name, "Scissors"));
     }
 
     protected void Throw(int choice) {
