@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerManager player;
     [SerializeField] OpponentManager opponent;
     [SerializeField] bool AIMode = true;
+    [Header("Managers")]
+    [SerializeField] Countdown rps_countdown;
     [Header("Gameplay Texts")]
     [SerializeField] TextMeshProUGUI drawScoreText;
+    [SerializeField] TextMeshProUGUI countdownText;
     [SerializeField] TextMeshProUGUI resultText;
     [Header("Gameplay Buttons")]
     [SerializeField] GameObject actionButtons;
@@ -33,17 +36,31 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         buttons = buttonObjs.Select(obj => obj.GetComponent<Button>()).ToArray();
+    }
+
+    public void PlayGame() {
+        actionButtons.SetActive(true);
+        StartGame(startGameButton.gameObject);
+    }
+
+    public void PlayAgain() {
+        ResetChoice();
+        resultText.text = "Rock Paper Scissors";
+
+        StartGame(playAgainButton);
+    }
+
+    void StartGame(GameObject playButton) {
+        rps_countdown.Reset();
+        playButton.SetActive(false);
         StartCoroutine(StandByPhase());
     }
 
-    public void StartGame() {
-        startGameButton.gameObject.SetActive(false);
-        actionButtons.SetActive(true);
-    }
-
     IEnumerator StandByPhase() {
+        StartCoroutine(rps_countdown.StartCountdown());
+
         if(AIMode) {
-            yield return new WaitUntil(PlayerMoved);
+            yield return new WaitUntil(IsAITurn);
             StartCoroutine(AITurn());
         }
 
@@ -61,7 +78,8 @@ public class GameManager : MonoBehaviour
 
     Result GetResult(int player, int opponent) {
         if(IsDraw(player, opponent)) { return Result.Draw; }
-        else if(IsWin(player, opponent)) { return Result.Win; }
+        else if(IsTimeOut(player)) { return Result.Lose; }
+        else if(IsTimeOut(opponent) || IsWin(player, opponent)) { return Result.Win; }
         else { return Result.Lose; }
     }
 
@@ -99,12 +117,16 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    bool IsAITurn() {
+        return PlayerMoved() || rps_countdown.Done;
+    }
+
     bool PlayerMoved() {
         return player.Choice > NO_SELECTION;
     }
 
     bool AllPlayersMoved() {
-        return PlayerMoved() && opponent.Choice > NO_SELECTION;
+        return (PlayerMoved() || rps_countdown.Done) && opponent.Choice > NO_SELECTION;
     }
 
     bool IsDraw(int player, int opponent) {
@@ -115,7 +137,12 @@ public class GameManager : MonoBehaviour
         return (player == 0 && opponent == 2) || (player == 2 && opponent == 1) || (player == 1 && opponent == 0);
     }
 
+    bool IsTimeOut(int player) {
+        return player < 0 || player > 2;
+    }
+
     void ShowChoice(int choice) {
+
         for(int i = 0; i < buttonObjs.Length; i++) {
             buttons[i].interactable  = false;
 
@@ -135,14 +162,5 @@ public class GameManager : MonoBehaviour
             buttons[i].interactable = true;
             buttonObjs[i].transform.parent.gameObject.SetActive(true);
         }
-    }
-
-    public void PlayAgain() {
-        ResetChoice();
-
-        resultText.text = "Rock Paper Scissors";
-        playAgainButton.SetActive(false);
-
-        StartCoroutine(StandByPhase());
     }
 }

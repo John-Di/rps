@@ -41,6 +41,10 @@ public class PlayerManager : MonoBehaviour {
         // Debug.Log(string.Format("{0}: {1}", gameObject.name, "Scissors"));
     }
 
+    public void Fail() {
+        animator.SetInteger("choice", 0);
+    }
+
     protected void Throw(int choice) {
         this.choice = choice;
         animator.SetInteger("choice", choice);
@@ -59,5 +63,6 @@ public class PlayerManager : MonoBehaviour {
     public void Reset() {
         choice = -1;
         animator.SetInteger("choice", choice);
+        animator.Play("Idle", -1, 0f);
     }
 }
