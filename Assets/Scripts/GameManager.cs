@@ -49,8 +49,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain() {
         ResetChoice();
-        resultText.text = "Rock Paper Scissors";
-
         StartGame(playAgainButton);
     }
 
@@ -64,6 +62,10 @@ public class GameManager : MonoBehaviour
     public void ToggleScoreBoard(bool gameStarted) {
         foreach(GameObject panel in scoreboardObjs) {
             panel.SetActive(!gameStarted);
+        }
+
+        if(gameStarted) {
+            resultText.text = "Choose Now";
         }
 
         countdownObj.SetActive(gameStarted);
