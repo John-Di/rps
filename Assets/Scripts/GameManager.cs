@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject startGameButton;
     [SerializeField] GameObject playAgainButton;
     [SerializeField] GameObject[] buttonObjs;
+    [Header("Gameplay Buttons")]
+    [SerializeField] GameObject countdownObj;
+    [SerializeField] GameObject[] scoreboardObjs;
     #endregion
 
     Result turnResult;
@@ -53,8 +56,17 @@ public class GameManager : MonoBehaviour
 
     void StartGame(GameObject playButton) {
         rps_countdown.Reset();
+        ToggleScoreBoard(true);
         playButton.SetActive(false);
         StartCoroutine(StandByPhase());
+    }
+
+    public void ToggleScoreBoard(bool gameStarted) {
+        foreach(GameObject panel in scoreboardObjs) {
+            panel.SetActive(!gameStarted);
+        }
+
+        countdownObj.SetActive(gameStarted);
     }
 
     IEnumerator StandByPhase() {
@@ -99,6 +111,7 @@ public class GameManager : MonoBehaviour
         }
 
         playAgainButton.SetActive(true);
+        ToggleScoreBoard(false);
     }
 
     void Win() {
