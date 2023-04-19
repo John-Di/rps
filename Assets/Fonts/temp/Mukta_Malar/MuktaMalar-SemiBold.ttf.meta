@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 6f2f9e3f15c0a3a4086237c8fb143dd4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Mukta Malar
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e900567ac99b28a4597d3dfe0c552d89, type: 3}
+  - {fileID: 12800000, guid: 3dd66233f4b4af1449c8652a00c34b29, type: 3}
+  - {fileID: 12800000, guid: c2364366016537048aa6d6ac2cd81f35, type: 3}
+  - {fileID: 12800000, guid: 7aa985b93a99d4940ada06fe17def71c, type: 3}
+  - {fileID: 12800000, guid: a68d6c68310a7af4787720452dc3932b, type: 3}
+  - {fileID: 12800000, guid: 2b06b77a50089e5468e53211bdd66c80, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

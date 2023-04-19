@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OpponentManager : PlayerManager {
     public void Move() {
-        choice = Random.Range(0, buttons.Length);
+        choice = Random.Range(0, 3);
         Throw(choice);
     }
 }

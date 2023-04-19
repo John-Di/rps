@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 981cd1c23aa599f46a110365058c4c95
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Lexend Deca
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6541248304e56b44b8e753bd50c01cb5, type: 3}
+  - {fileID: 12800000, guid: 34fe9e168924bd6409f090ea38708699, type: 3}
+  - {fileID: 12800000, guid: e729977138224724ca7799c858d81ffc, type: 3}
+  - {fileID: 12800000, guid: e725380f6f5b0304f9df4106dcc14d2a, type: 3}
+  - {fileID: 12800000, guid: a7bd8312ec6cda444b6b582f2eeafa32, type: 3}
+  - {fileID: 12800000, guid: 28c301e23c45fce4b9dffdc010f30cda, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
