@@ -11,12 +11,18 @@ public class GameManager : MonoBehaviour
     enum Result { Win, Lose, Draw }
 
     #region Serialized Fields
-    [SerializeField] TextMeshProUGUI drawScoreText, resultText;
-    [SerializeField] GameObject actionButtons, startGameButton, playAgainButton;
-    [SerializeField] GameObject[] buttonObjs;
+    [Header("Players")]
     [SerializeField] PlayerManager player;
     [SerializeField] OpponentManager opponent;
     [SerializeField] bool AIMode = true;
+    [Header("Gameplay Texts")]
+    [SerializeField] TextMeshProUGUI drawScoreText;
+    [SerializeField] TextMeshProUGUI resultText;
+    [Header("Gameplay Buttons")]
+    [SerializeField] GameObject actionButtons;
+    [SerializeField] GameObject startGameButton;
+    [SerializeField] GameObject playAgainButton;
+    [SerializeField] GameObject[] buttonObjs;
     #endregion
 
     Result turnResult;
