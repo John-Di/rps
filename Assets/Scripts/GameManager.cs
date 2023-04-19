@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     int drawScore = 0;
     const int NO_SELECTION = -1;
     Button[] buttons;
+    private IEnumerator countdownRoutine;
 
     // Start is called before the first frame update
     void Start() {
@@ -57,7 +58,8 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator StandByPhase() {
-        StartCoroutine(rps_countdown.StartCountdown());
+        countdownRoutine = rps_countdown.StartCountdown();
+        StartCoroutine(countdownRoutine);
 
         if(AIMode) {
             yield return new WaitUntil(IsAITurn);
@@ -65,9 +67,15 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitUntil(AllPlayersMoved);
-
+        StopCountdown();
         ShowChoice(player.Choice);
         BattlePhase();
+    }
+
+    void StopCountdown() {
+        StopCoroutine(countdownRoutine);
+        rps_countdown.gameObject.SetActive(false);
+        rps_countdown.Reset();
     }
 
     void BattlePhase() {
