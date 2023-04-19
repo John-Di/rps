@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
 
     #region Serialized Fields
     [SerializeField] TextMeshProUGUI drawScoreText, resultText;
+    [SerializeField] GameObject actionButtons, startGameButton, playAgainButton;
     [SerializeField] GameObject[] buttonObjs;
-    [SerializeField] GameObject playAgainButton;
     [SerializeField] PlayerManager player;
     [SerializeField] OpponentManager opponent;
     [SerializeField] bool AIMode = true;
@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
     void Start() {
         buttons = buttonObjs.Select(obj => obj.GetComponent<Button>()).ToArray();
         StartCoroutine(StandByPhase());
+    }
+
+    public void StartGame() {
+        startGameButton.gameObject.SetActive(false);
+        actionButtons.SetActive(true);
     }
 
     IEnumerator StandByPhase() {
