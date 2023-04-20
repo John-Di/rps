@@ -41,12 +41,20 @@ public class PlayerManager : MonoBehaviour {
         // Debug.Log(string.Format("{0}: {1}", gameObject.name, "Scissors"));
     }
 
+    public void Undo() {
+        choice = -1;
+    }
+
+
     public void Fail() {
         animator.SetInteger("choice", 0);
     }
 
     protected void Throw(int choice) {
         this.choice = choice;
+    }
+
+    public void RevealChoice() {
         animator.SetInteger("choice", choice);
     }
 

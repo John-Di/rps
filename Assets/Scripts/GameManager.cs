@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject actionButtons;
     [SerializeField] GameObject startGameButton;
     [SerializeField] GameObject playAgainButton;
+    [SerializeField] GameObject undoButton;
     [SerializeField] GameObject[] buttonObjs;
     [Header("Gameplay Buttons")]
     [SerializeField] GameObject countdownObj;
@@ -48,7 +49,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void PlayAgain() {
-        ResetChoice();
+        ResetPlayers();
+        ResetButtons();
         StartGame(playAgainButton);
     }
 
@@ -76,14 +78,19 @@ public class GameManager : MonoBehaviour
         StartCoroutine(countdownRoutine);
 
         if(AIMode) {
-            yield return new WaitUntil(IsAITurn);
             StartCoroutine(AITurn());
         }
 
-        yield return new WaitUntil(AllPlayersMoved);
+        StartCoroutine(PlayerTurn());
+
+        yield return new WaitUntil(CountdownDone);
         StopCountdown();
-        ShowChoice(player.Choice);
         BattlePhase();
+    }
+
+    IEnumerator PlayerTurn() {
+        yield return new WaitUntil(PlayerMoved);
+        HighlightChoice(player.Choice);
     }
 
     void StopCountdown() {
@@ -94,8 +101,17 @@ public class GameManager : MonoBehaviour
 
     void BattlePhase() {
         Result result = GetResult(player.Choice, opponent.Choice);
-
+        RevealChoices();
         ResultPhase(result);
+    }
+
+    void RevealChoices() {
+        player.RevealChoice();
+        opponent.RevealChoice();
+
+        for(int i = 0; i < buttonObjs.Length; i++) {
+            buttons[i].interactable = false;
+        }
     }
 
     Result GetResult(int player, int opponent) {
@@ -141,7 +157,11 @@ public class GameManager : MonoBehaviour
     }
 
     bool IsAITurn() {
-        return PlayerMoved() || rps_countdown.Done;
+        return rps_countdown.Done;
+    }
+
+    bool CountdownDone() {
+        return rps_countdown.Done;
     }
 
     bool PlayerMoved() {
@@ -164,7 +184,7 @@ public class GameManager : MonoBehaviour
         return player < 0 || player > 2;
     }
 
-    void ShowChoice(int choice) {
+    void HighlightChoice(int choice) {
 
         for(int i = 0; i < buttonObjs.Length; i++) {
             buttons[i].interactable  = false;
@@ -175,11 +195,23 @@ public class GameManager : MonoBehaviour
 
             buttonObjs[i].transform.parent.gameObject.SetActive(false);
         }
+
+        undoButton.SetActive(true);
     }
 
-    public void ResetChoice() {
+    public void UndoChoice() {
+        player.Undo();
+        ResetButtons();
+        StartCoroutine(PlayerTurn());
+    }
+
+    public void ResetPlayers() {
         player.Reset();
         opponent.Reset();
+    }
+
+    public void ResetButtons() {
+        undoButton.SetActive(false);
 
         for(int i = 0; i < buttonObjs.Length; i++) {
             buttons[i].interactable = true;
