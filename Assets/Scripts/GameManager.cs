@@ -41,23 +41,20 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         buttons = buttonObjs.Select(obj => obj.GetComponent<Button>()).ToArray();
-    }
-
-    public void PlayGame() {
         actionButtons.SetActive(true);
-        StartGame(startGameButton.gameObject);
+        StartGame();
     }
 
     public void PlayAgain() {
         ResetPlayers();
         ResetButtons();
-        StartGame(playAgainButton);
+        StartGame();
     }
 
-    void StartGame(GameObject playButton) {
+    void StartGame() {
         rps_countdown.Reset();
         ToggleScoreBoard(true);
-        playButton.SetActive(false);
+        playAgainButton.SetActive(false);
         StartCoroutine(StandByPhase());
     }
 
