@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator StandByAnimations() {
+        DisableChoices();
         actionButtons.SetActive(true);
         yield return new WaitForSeconds(buttonStandbyClip.length);
         EnableChoices();
