@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject countdownObj;
     [SerializeField] GameObject[] scoreboardObjs;
     [Header("Animations")]
+    [SerializeField] Animator actionButtonsAnim;
     [SerializeField] AnimationClip buttonStandbyClip;
     #endregion
 
@@ -82,6 +83,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PlayerTurn());
 
         yield return new WaitUntil(CountdownDone);
+        DisableChoices();
         StopCountdown();
         BattlePhase();
     }
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
         DisableChoices();
         actionButtons.SetActive(true);
         yield return new WaitForSeconds(buttonStandbyClip.length);
+        actionButtonsAnim.SetBool("done", true);
         EnableChoices();
         countdownRoutine = rps_countdown.StartCountdown();
         rps_countdown.gameObject.SetActive(true);
@@ -225,9 +228,9 @@ public class GameManager : MonoBehaviour
 
     public void ResetChoice() {
         undoButton.SetActive(false);
+        EnableChoices();
 
         for(int i = 0; i < buttonContainers.Length; i++) {
-            buttons[i].interactable = true;
             buttonContainers[i].SetActive(true);
         }
     }
