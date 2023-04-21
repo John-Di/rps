@@ -159,19 +159,10 @@ MonoBehaviour:
   gamepad: {fileID: 1822971834}
   player: {fileID: 1333696}
   opponent: {fileID: 1333695}
-  AIMode: 1
-  rps_countdown: {fileID: 186429122}
   drawScoreText: {fileID: 1893351734}
   resultText: {fileID: 1893578897}
-  actionButtons: {fileID: 1822971828}
-  playAgainButton: {fileID: 155316145}
-  RPSButtons:
-  - {fileID: 199236956}
-  - {fileID: 475676989}
-  - {fileID: 999959884}
   scoreboardObjs:
   - {fileID: 2045966167}
-  buttonStandbyClip: {fileID: 7400000, guid: 9ff78ba84f6553c468662635520f343a, type: 2}
 --- !u!4 &1333694
 Transform:
   m_ObjectHideFlags: 0
@@ -227,6 +218,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4eb563ed278e1d47a8e4bd4be03b43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1333696}
+  opponent: {fileID: 1333695}
+  countdown: {fileID: 186429122}
+  gamepad: {fileID: 1822971834}
+  actionButtons: {fileID: 1822971828}
+  playAgainButton: {fileID: 155316145}
+  AIMode: 1
+  gamepadStandbyClip: {fileID: 7400000, guid: 9ff78ba84f6553c468662635520f343a, type: 2}
 --- !u!1 &21875098
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,6 @@ public class Gamepad : MonoBehaviour {
     public void HighlightChoice(int choice) {
         for(int i = 0; i < buttonContainers.Length; i++) {
             buttons[i].interactable = false;
-            print(i == choice);
             buttonContainers[i].SetActive(i == choice);
         }
 
@@ -53,5 +52,11 @@ public class Gamepad : MonoBehaviour {
         }
 
         ToggleChoices(true);
+    }
+
+    public void Reset() {
+        playAgainButton.SetActive(false);
+        ResetChoice();
+        gameObject.SetActive(false);
     }
 }
