@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rules: {fileID: 1333697}
+  gamepad: {fileID: 1822971834}
   player: {fileID: 1333696}
   opponent: {fileID: 1333695}
   AIMode: 1
@@ -170,7 +171,6 @@ MonoBehaviour:
   - {fileID: 999959884}
   scoreboardObjs:
   - {fileID: 2045966167}
-  gamepad: {fileID: 1822971834}
   buttonStandbyClip: {fileID: 7400000, guid: 9ff78ba84f6553c468662635520f343a, type: 2}
 --- !u!4 &1333694
 Transform:
@@ -4442,18 +4442,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a3d5f784362ea48ac04189aadacc10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1822971833}
   RPSButtons:
   - {fileID: 199236956}
   - {fileID: 475676989}
   - {fileID: 999959884}
-  - {fileID: 1796177808}
   gameplayButtons:
   - {fileID: 199236958}
   - {fileID: 475676991}
   - {fileID: 999959886}
-  playAgainButton: {fileID: 155316145}
+  - {fileID: 1796177811}
   undoButton: {fileID: 1809170957}
-  animator: {fileID: 1822971833}
+  playAgainButton: {fileID: 155316145}
 --- !u!1 &1893351732
 GameObject:
   m_ObjectHideFlags: 0

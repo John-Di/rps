@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1333694}
   - component: {fileID: 1333693}
+  - component: {fileID: 1333697}
   - component: {fileID: 1333696}
   - component: {fileID: 1333695}
   m_Layer: 0
@@ -154,6 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e2ecaeaa849c74db3fd87991e8420f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rules: {fileID: 1333697}
+  gamepad: {fileID: 1822971834}
   player: {fileID: 1333696}
   opponent: {fileID: 1333695}
   AIMode: 1
@@ -162,19 +165,12 @@ MonoBehaviour:
   resultText: {fileID: 1893578897}
   actionButtons: {fileID: 1822971828}
   playAgainButton: {fileID: 155316145}
-  undoButton: {fileID: 1809170957}
-  gameplayButtons:
-  - {fileID: 199236958}
-  - {fileID: 475676991}
-  - {fileID: 999959886}
-  - {fileID: 1796177811}
   RPSButtons:
   - {fileID: 199236956}
   - {fileID: 475676989}
   - {fileID: 999959884}
   scoreboardObjs:
   - {fileID: 2045966167}
-  actionButtonsAnim: {fileID: 1822971833}
   buttonStandbyClip: {fileID: 7400000, guid: 9ff78ba84f6553c468662635520f343a, type: 2}
 --- !u!4 &1333694
 Transform:
@@ -219,6 +215,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1484898406}
   scoreText: {fileID: 21875100}
+--- !u!114 &1333697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4eb563ed278e1d47a8e4bd4be03b43f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &21875098
 GameObject:
   m_ObjectHideFlags: 0
@@ -4361,6 +4369,7 @@ GameObject:
   - component: {fileID: 1822971829}
   - component: {fileID: 1822971832}
   - component: {fileID: 1822971833}
+  - component: {fileID: 1822971834}
   m_Layer: 5
   m_Name: RPS Actions
   m_TagString: Untagged
@@ -4421,6 +4430,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1822971834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822971828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a3d5f784362ea48ac04189aadacc10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1822971833}
+  RPSButtons:
+  - {fileID: 199236956}
+  - {fileID: 475676989}
+  - {fileID: 999959884}
+  gameplayButtons:
+  - {fileID: 199236958}
+  - {fileID: 475676991}
+  - {fileID: 999959886}
+  - {fileID: 1796177811}
+  undoButton: {fileID: 1809170957}
+  playAgainButton: {fileID: 155316145}
 --- !u!1 &1893351732
 GameObject:
   m_ObjectHideFlags: 0
