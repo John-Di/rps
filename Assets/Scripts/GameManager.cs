@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI resultText;
     [Header("Gameplay Buttons")]
     [SerializeField] GameObject actionButtons;
-    [SerializeField] GameObject startGameButton;
     [SerializeField] GameObject playAgainButton;
     [SerializeField] GameObject undoButton;
     [SerializeField] GameObject[] buttonObjs;
@@ -41,11 +40,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         buttons = buttonObjs.Select(obj => obj.GetComponent<Button>()).ToArray();
-        actionButtons.SetActive(true);
         StartGame();
     }
 
     public void PlayAgain() {
+        actionButtons.SetActive(false);
         ResetPlayers();
         ResetButtons();
         StartGame();
@@ -66,13 +65,10 @@ public class GameManager : MonoBehaviour
         if(gameStarted) {
             resultText.text = "Choose Now";
         }
-
-        countdownObj.SetActive(gameStarted);
     }
 
     IEnumerator StandByPhase() {
-        countdownRoutine = rps_countdown.StartCountdown();
-        StartCoroutine(countdownRoutine);
+        yield return StartCoroutine(StandByAnimations());
 
         if(AIMode) {
             StartCoroutine(AITurn());
@@ -83,6 +79,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(CountdownDone);
         StopCountdown();
         BattlePhase();
+    }
+
+    IEnumerator StandByAnimations() {
+        actionButtons.SetActive(true);
+        yield return new WaitForSeconds(3);
+        countdownRoutine = rps_countdown.StartCountdown();
+        rps_countdown.gameObject.SetActive(true);
+        StartCoroutine(countdownRoutine);
     }
 
     IEnumerator PlayerTurn() {

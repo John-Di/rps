@@ -20,14 +20,13 @@ public class Countdown : MonoBehaviour {
 
     public IEnumerator StartCountdown() {
         done = false;
-        text.gameObject.SetActive(true);
+
         for(int i = COUNT; i > 0; i--) {
             text.text = i.ToString();
             yield return new WaitForSeconds(1);
         }
 
         done = true;
-        text.gameObject.SetActive(false);
     }
 
     public void Reset() {
