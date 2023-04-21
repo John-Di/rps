@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class RPSRules : GameRules {
     public override int GetResult(int player, int opponent) {
-        if(IsDraw(player, opponent)) { return 1; }
-        else if(IsTimeOut(player)) { return 0; }
-        else if(IsTimeOut(opponent) || IsWin(player, opponent)) { return 2; }
-        else { return 0; }
+        if(IsDraw(player, opponent)) { return 2; }
+        else if(IsTimeOut(player)) { return 1; }
+        else if(IsTimeOut(opponent) || IsWin(player, opponent)) { return 0; }
+        else { return 1; }
     }
 
     protected override bool IsDraw(int player, int opponent) {

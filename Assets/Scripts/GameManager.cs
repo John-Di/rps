@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     #region Serialized Fields
     [SerializeField] GameRules rules;
+    [SerializeField] Gamepad gamepad;
     [Header("Players")]
     [SerializeField] PlayerManager player;
     [SerializeField] OpponentManager opponent;
@@ -24,17 +25,13 @@ public class GameManager : MonoBehaviour
     [Header("Gameplay Buttons")]
     [SerializeField] GameObject actionButtons;
     [SerializeField] GameObject playAgainButton;
-    [SerializeField] GameObject undoButton;
-    [SerializeField] Button[] gameplayButtons;
     [SerializeField] GameObject[] RPSButtons;
     [Header("Gameplay Scoreboard")]
     [SerializeField] GameObject[] scoreboardObjs;
     [Header("Animations")]
-    [SerializeField] Animator actionButtonsAnim;
     [SerializeField] AnimationClip buttonStandbyClip;
     #endregion
 
-    Result turnResult;
     int drawScore = 0;
     const int NO_SELECTION = -1;
     Button[] buttons;
@@ -43,17 +40,6 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        buttons = RPSButtons.Select(obj => obj.GetComponent<Button>()).ToArray();
-        buttonContainers = RPSButtons.Select(obj => obj.transform.parent.gameObject).ToArray();
-        StartGame();
-    }
-
-    public void PlayAgain() {
-        actionButtons.SetActive(false);
-        playAgainButton.SetActive(false);
-        rps_countdown.Reset();
-        ResetPlayers();
-        ResetChoice();
         StartGame();
     }
 
@@ -88,11 +74,9 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator StandByAnimations() {
-        DisableChoices();
         actionButtons.SetActive(true);
         yield return new WaitForSeconds(buttonStandbyClip.length);
-        actionButtonsAnim.SetBool("done", true);
-        EnableChoices();
+        gamepad.Enable();
         countdownRoutine = rps_countdown.StartCountdown();
         rps_countdown.gameObject.SetActive(true);
         StartCoroutine(countdownRoutine);
@@ -100,8 +84,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlayerTurn() {
         yield return new WaitUntil(PlayerMoved);
-        HighlightChoice(player.Choice);
-        DisableChoices();
+        gamepad.HighlightChoice(player.Choice);
     }
 
     void StopCountdown() {
@@ -116,31 +99,14 @@ public class GameManager : MonoBehaviour
         ResultPhase(result);
     }
 
-    void HighlightChoice(int choice) {
-        for(int i = 0; i < buttonContainers.Length; i++) {
-            buttons[i].interactable = false;
-            if(i == choice) { continue; }
-            buttonContainers[i].SetActive(false);
-        }
-
-        undoButton.SetActive(true);
-    }
-    void ToggleChoices(bool state) {
-        actionButtonsAnim.SetBool("enabled", state);
-    }
-
     public void UndoChoice() {
         player.Undo();
-        ResetChoice();
+        gamepad.ResetChoice();
         StartCoroutine(PlayerTurn());
     }
 
-    void EnableChoices() {
-        ToggleChoices(true);
-    }
-
     void DisableChoices() {
-        ToggleChoices(false);
+        gamepad.ToggleChoices(false);
     }
 
     void RevealChoices() {
@@ -200,12 +166,16 @@ public class GameManager : MonoBehaviour
         opponent.Reset();
     }
 
-    public void ResetChoice() {
-        undoButton.SetActive(false);
-        EnableChoices();
+    public void PlayAgain() {
+        EndRound();
+        StartGame();
+    }
 
-        for(int i = 0; i < buttonContainers.Length; i++) {
-            buttonContainers[i].SetActive(true);
-        }
+    void EndRound() {
+        actionButtons.SetActive(false);
+        playAgainButton.SetActive(false);
+        rps_countdown.Reset();
+        gamepad.ResetChoice();
+        ResetPlayers();
     }
 }
