@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Countdown rps_countdown;
     [Header("Gameplay Texts")]
     [SerializeField] TextMeshProUGUI drawScoreText;
-    [SerializeField] TextMeshProUGUI countdownText;
     [SerializeField] TextMeshProUGUI resultText;
     [Header("Gameplay Buttons")]
     [SerializeField] GameObject actionButtons;
@@ -28,7 +27,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Button[] gameplayButtons;
     [SerializeField] GameObject[] RPSButtons;
     [Header("Gameplay Scoreboard")]
-    [SerializeField] GameObject countdownObj;
     [SerializeField] GameObject[] scoreboardObjs;
     [Header("Animations")]
     [SerializeField] Animator actionButtonsAnim;
@@ -127,9 +125,7 @@ public class GameManager : MonoBehaviour
         undoButton.SetActive(true);
     }
     void ToggleChoices(bool state) {
-        foreach(Button button in gameplayButtons) {
-            button.interactable = state;
-        }
+        actionButtonsAnim.SetBool("enabled", state);
     }
 
     void EnableChoices() {

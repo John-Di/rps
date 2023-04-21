@@ -159,7 +159,6 @@ MonoBehaviour:
   AIMode: 1
   rps_countdown: {fileID: 186429122}
   drawScoreText: {fileID: 1893351734}
-  countdownText: {fileID: 186429117}
   resultText: {fileID: 1893578897}
   actionButtons: {fileID: 1822971828}
   playAgainButton: {fileID: 155316145}
@@ -173,7 +172,6 @@ MonoBehaviour:
   - {fileID: 199236956}
   - {fileID: 475676989}
   - {fileID: 999959884}
-  countdownObj: {fileID: 186429116}
   scoreboardObjs:
   - {fileID: 2045966167}
   actionButtonsAnim: {fileID: 1822971833}
