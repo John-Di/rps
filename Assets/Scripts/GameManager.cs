@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     enum Result { Win, Lose, Draw }
 
     #region Serialized Fields
+    [SerializeField] GameRules rules;
     [Header("Players")]
     [SerializeField] PlayerManager player;
     [SerializeField] OpponentManager opponent;
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour
     }
 
     void BattlePhase() {
-        Result result = GetResult(player.Choice, opponent.Choice);
+        Result result = (Result)rules.GetResult(player.Choice, opponent.Choice);
         RevealChoices();
         ResultPhase(result);
     }
@@ -128,6 +129,12 @@ public class GameManager : MonoBehaviour
         actionButtonsAnim.SetBool("enabled", state);
     }
 
+    public void UndoChoice() {
+        player.Undo();
+        ResetChoice();
+        StartCoroutine(PlayerTurn());
+    }
+
     void EnableChoices() {
         ToggleChoices(true);
     }
@@ -139,13 +146,6 @@ public class GameManager : MonoBehaviour
     void RevealChoices() {
         player.RevealChoice();
         opponent.RevealChoice();
-    }
-
-    Result GetResult(int player, int opponent) {
-        if(IsDraw(player, opponent)) { return Result.Draw; }
-        else if(IsTimeOut(player)) { return Result.Lose; }
-        else if(IsTimeOut(opponent) || IsWin(player, opponent)) { return Result.Win; }
-        else { return Result.Lose; }
     }
 
     void ResultPhase(Result result) {
@@ -183,10 +183,6 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    bool IsAITurn() {
-        return rps_countdown.Done;
-    }
-
     bool CountdownDone() {
         return rps_countdown.Done;
     }
@@ -197,24 +193,6 @@ public class GameManager : MonoBehaviour
 
     bool AllPlayersMoved() {
         return (PlayerMoved() || rps_countdown.Done) && opponent.Choice > NO_SELECTION;
-    }
-
-    bool IsDraw(int player, int opponent) {
-        return player == opponent;
-    }
-
-    bool IsWin(int player, int opponent) {
-        return (player == 0 && opponent == 2) || (player == 2 && opponent == 1) || (player == 1 && opponent == 0);
-    }
-
-    bool IsTimeOut(int player) {
-        return player < 0 || player > 2;
-    }
-
-    public void UndoChoice() {
-        player.Undo();
-        ResetChoice();
-        StartCoroutine(PlayerTurn());
     }
 
     public void ResetPlayers() {

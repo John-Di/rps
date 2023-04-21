@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1333694}
   - component: {fileID: 1333693}
+  - component: {fileID: 1333697}
   - component: {fileID: 1333696}
   - component: {fileID: 1333695}
   m_Layer: 0
@@ -154,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e2ecaeaa849c74db3fd87991e8420f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rules: {fileID: 1333697}
   player: {fileID: 1333696}
   opponent: {fileID: 1333695}
   AIMode: 1
@@ -219,6 +221,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1484898406}
   scoreText: {fileID: 21875100}
+--- !u!114 &1333697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4eb563ed278e1d47a8e4bd4be03b43f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &21875098
 GameObject:
   m_ObjectHideFlags: 0
