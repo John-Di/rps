@@ -47,18 +47,18 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
-    void StartGame() {
-        rps_countdown.Reset();
-        ToggleScoreBoard(true);
-        playAgainButton.SetActive(false);
-        StartCoroutine(StandByPhase());
-    }
-
     public void PlayAgain() {
         actionButtons.SetActive(false);
+        playAgainButton.SetActive(false);
+        rps_countdown.Reset();
         ResetPlayers();
         ResetChoice();
         StartGame();
+    }
+
+    void StartGame() {
+        ToggleScoreBoard(true);
+        StartCoroutine(StandByPhase());
     }
 
     public void ToggleScoreBoard(bool gameStarted) {
