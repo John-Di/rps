@@ -48,18 +48,18 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
-    public void PlayAgain() {
-        actionButtons.SetActive(false);
-        ResetPlayers();
-        ResetChoice();
-        StartGame();
-    }
-
     void StartGame() {
         rps_countdown.Reset();
         ToggleScoreBoard(true);
         playAgainButton.SetActive(false);
         StartCoroutine(StandByPhase());
+    }
+
+    public void PlayAgain() {
+        actionButtons.SetActive(false);
+        ResetPlayers();
+        ResetChoice();
+        StartGame();
     }
 
     public void ToggleScoreBoard(bool gameStarted) {
@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StandByAnimations() {
         actionButtons.SetActive(true);
         yield return new WaitForSeconds(buttonStandbyClip.length);
+        EnableChoices();
         countdownRoutine = rps_countdown.StartCountdown();
         rps_countdown.gameObject.SetActive(true);
         StartCoroutine(countdownRoutine);
@@ -96,8 +97,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlayerTurn() {
         yield return new WaitUntil(PlayerMoved);
-        DisableChoices();
         HighlightChoice(player.Choice);
+        DisableChoices();
     }
 
     void StopCountdown() {
@@ -112,10 +113,27 @@ public class GameManager : MonoBehaviour
         ResultPhase(result);
     }
 
-    void DisableChoices() {
-        foreach(Button button in gameplayButtons) {
-            button.interactable = false;
+    void HighlightChoice(int choice) {
+        for(int i = 0; i < buttonContainers.Length; i++) {
+            buttons[i].interactable = false;
+            if(i == choice) { continue; }
+            buttonContainers[i].SetActive(false);
         }
+
+        undoButton.SetActive(true);
+    }
+    void ToggleChoices(bool state) {
+        foreach(Button button in gameplayButtons) {
+            button.interactable = state;
+        }
+    }
+
+    void EnableChoices() {
+        ToggleChoices(true);
+    }
+
+    void DisableChoices() {
+        ToggleChoices(false);
     }
 
     void RevealChoices() {
@@ -191,15 +209,6 @@ public class GameManager : MonoBehaviour
 
     bool IsTimeOut(int player) {
         return player < 0 || player > 2;
-    }
-
-    void HighlightChoice(int choice) {
-        for(int i = 0; i < buttonContainers.Length; i++) {
-            if(i == choice) { continue; }
-            buttonContainers[i].SetActive(false);
-        }
-
-        undoButton.SetActive(true);
     }
 
     public void UndoChoice() {

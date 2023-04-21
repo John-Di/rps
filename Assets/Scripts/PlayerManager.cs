@@ -45,7 +45,6 @@ public class PlayerManager : MonoBehaviour {
         choice = -1;
     }
 
-
     public void Fail() {
         animator.SetInteger("choice", 0);
     }
